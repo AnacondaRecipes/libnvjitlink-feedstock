@@ -24,7 +24,7 @@ source:
   sha256: d8f4086215f482263dbfbe47a3580e88acbcdacbb284f8aa0c21a8fe408e671d  # [win]
 
 build:
-  number: 1
+  number: 2
   binary_relocation: false
   skip: true  # [osx or (linux and s390x)]
 
@@ -51,8 +51,8 @@ outputs:
       build:
         - {{ compiler("c") }}
         - {{ compiler("cxx") }}
-        #- arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - sysroot_{{ target_platform }} {{ conda_glibc_ver }}.*    # [linux]
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - {{ stdlib("c") }}
         - patchelf <0.18.0                      # [linux]
       host:
         - cuda-version {{ cuda_version }}
@@ -87,8 +87,8 @@ outputs:
       build:
         - {{ compiler("c") }}
         - {{ compiler("cxx") }}
-        #- arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - sysroot_{{ target_platform }} {{ conda_glibc_ver }}.*    # [linux]
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - {{ stdlib("c") }}
       host:
         - cuda-version {{ cuda_version }}
       run:
@@ -123,8 +123,8 @@ outputs:
       build:
         - {{ compiler("c") }}
         - {{ compiler("cxx") }}
-        #- arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - sysroot_{{ target_platform }} {{ conda_glibc_ver }}.*    # [linux]
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - {{ stdlib("c") }}
       host:
         - cuda-version {{ cuda_version }}
       run:
