@@ -33,6 +33,13 @@ requirements:
 
 outputs:
   - name: libnvjitlink
+    build:
+      binary_relocation: false
+      # Repacked binaries on linux aarch64 have flag DT_TLSDESC set (GNU_HASH), which is not supported by lief.
+      # This is a workaround to ignore the overlinking error for problematic libnvvm.so files.
+      overlinking_ignore_patterns: # [linux and aarch64]
+        - "lib/libnvJitLink.so.*"  # [linux and aarch64]
+        - "targets/{{ target_name }}/lib/libnvJitLink.so.*"  # [linux and aarch64]
     files:
       - lib/libnvJitLink.so.*                            # [linux]
       - targets/{{ target_name }}/lib/libnvJitLink.so.*  # [linux]
