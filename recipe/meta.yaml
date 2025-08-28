@@ -37,7 +37,6 @@ requirements:
 outputs:
   - name: libnvjitlink
     build:
-      binary_relocation: false
       # This is a workaround to ignore the overlinking error for problematic *.so files.
       # The reason is that in the Amazon Linux 2-based Docker container, there's py-lief version 0.12.3.
       # In the Rocky 8 container, there's 0.16.4, which seems to have this bug.
