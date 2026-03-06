@@ -3,12 +3,10 @@
 {% set cuda_version = "12.9" %}
 {% set platform = "placeholder" %}  # [osx]
 {% set platform = "linux-x86_64" %}  # [linux64]
-{% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64 and arm_variant_type=="sbsa"]
 {% set platform = "linux-aarch64" %}  # [aarch64 and arm_variant_type=="tegra"]
 {% set platform = "windows-x86_64" %}  # [win]
 {% set target_name = "x86_64-linux" %}  # [linux64]
-{% set target_name = "ppc64le-linux" %}  # [ppc64le]
 {% set target_name = "sbsa-linux" %}  # [aarch64 and arm_variant_type=="sbsa"]
 {% set target_name = "aarch64-linux" %}  # [aarch64 and arm_variant_type=="tegra"]
 {% set target_name = "x64" %}  # [win]
@@ -27,17 +25,22 @@ source:
   sha256: ee7175da9628d47ccc92dce6d28d57ca77633e79079a2aee90e2a645edcd1384  # [win]
 
 build:
-  number: 2
+  number: 0
   binary_relocation: false
-  skip: true  # [osx or ppc64le]
+  skip: true  # [osx]
 
 requirements:
   build:
-    - cf-nvidia-tools 1.*  # [linux] 
+    - cf-nvidia-tools 1.*  # [linux]
     - patchelf <0.18.0     # [linux]
 
 outputs:
   - name: libnvjitlink
+    build:
+      binary_relocation: false
+      overlinking_ignore_patterns:
+        # Workaround for LIEF's 'not a valid TAG' error
+        - '*libnvJitLink*.so*'  # [linux and aarch64]
     files:
       - lib/libnvJitLink.so.*                            # [linux]
       - targets/{{ target_name }}/lib/libnvJitLink.so.*  # [linux]
@@ -73,10 +76,12 @@ outputs:
       license_file: LICENSE
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_url: https://docs.nvidia.com/cuda/eula/index.html
+      license_family: Other
       summary: CUDA nvJitLink library
       description: |
         nvJitLink - Just-in-Time Link Time Optimization (JIT LTO)
       doc_url: https://docs.nvidia.com/cuda/nvjitlink/
+      dev_url: https://docs.nvidia.com/cuda/nvjitlink/
 
   - name: libnvjitlink-dev
     build:
@@ -120,10 +125,12 @@ outputs:
       license_file: LICENSE
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_url: https://docs.nvidia.com/cuda/eula/index.html
+      license_family: Other
       summary: CUDA nvJitLink library
       description: |
         nvJitLink - Just-in-Time Link Time Optimization (JIT LTO)
       doc_url: https://docs.nvidia.com/cuda/nvjitlink/index.html
+      dev_url: https://docs.nvidia.com/cuda/nvjitlink/
 
   - name: libnvjitlink-static
     files:
@@ -152,20 +159,24 @@ outputs:
       license_file: LICENSE
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_url: https://docs.nvidia.com/cuda/eula/index.html
+      license_family: Other
       summary: CUDA nvJitLink library
       description: |
         nvJitLink - Just-in-Time Link Time Optimization (JIT LTO)
       doc_url: https://docs.nvidia.com/cuda/nvjitlink/index.html
+      dev_url: https://docs.nvidia.com/cuda/nvjitlink/
 
 about:
   home: https://developer.nvidia.com/cuda-toolkit
   license_file: LICENSE
   license: LicenseRef-NVIDIA-End-User-License-Agreement
   license_url: https://docs.nvidia.com/cuda/eula/index.html
+  license_family: Other
   summary: CUDA nvJitLink library
   description: |
     nvJitLink - Just-in-Time Link Time Optimization (JIT LTO)
   doc_url: https://docs.nvidia.com/cuda/nvjitlink/index.html
+  dev_url: https://docs.nvidia.com/cuda/nvjitlink/
 
 extra:
   recipe-maintainers:
