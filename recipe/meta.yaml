@@ -1,6 +1,6 @@
 {% set name = "libnvjitlink" %}
-{% set version = "13.1.115" %}
-{% set cuda_version = "13.1" %}
+{% set version = "13.2.78" %}
+{% set cuda_version = "13.2" %}
 {% set platform = "placeholder" %}  # [osx]
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -17,9 +17,9 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/{{ name }}/{{ platform }}/{{ name }}-{{ platform }}-{{ version }}-archive.{{ extension }}
-  sha256: c1634fd16cd4a011a57c1d07f9cbfb3bc9b9e9259d97f084a316005f30fd0f2e  # [linux64]
-  sha256: fc34407df1deb6a0c0a2c218788d32a95becad23a72de0bfab12d35d0a0d200c  # [aarch64]
-  sha256: 81768c505953e37b5beeea97dadcb7227471f8bcfa167134ca010ed52cf176af  # [win]
+  sha256: 75fb264ce48651095972ab3aaaefab0809f69245f859aabbf2113f4c5e01d400  # [linux64]
+  sha256: d47a48d4662842d3c6bdd06aeb65d6a9c597be5dbfdf9ea6aece20ed90957183  # [aarch64]
+  sha256: ac6e0a7da5e282c80bc0e08bdb3c5ea2d91e1f5998d9caaf2159c15313c80df5  # [win]
 
 build:
   number: 0
@@ -98,7 +98,10 @@ outputs:
       host:
         - cuda-version {{ cuda_version }}
       run:
-        - {{ pin_compatible("cuda-version", max_pin="x.x") }}
+        # xref: conda-forge/libnvjitlink-feedstock#15
+        # we want to allow ex: libnvjitlink=12.6 installed in a cuda-version=12.3 environment,
+        # both within the same CUDA major.
+        - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x.x") }}
         - {{ pin_subpackage("libnvjitlink", exact=True) }}
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
@@ -135,7 +138,10 @@ outputs:
       host:
         - cuda-version {{ cuda_version }}
       run:
-        - {{ pin_compatible("cuda-version", max_pin="x.x") }}
+        # xref: conda-forge/libnvjitlink-feedstock#15
+        # we want to allow ex: libnvjitlink=12.6 installed in a cuda-version=12.3 environment,
+        # both within the same CUDA major.
+        - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x.x") }}
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
