@@ -71,6 +71,7 @@ outputs:
       license_file: LICENSE
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_url: https://docs.nvidia.com/cuda/eula/index.html
+      license_family: Other
       summary: CUDA nvJitLink library
       description: |
         nvJitLink - Just-in-Time Link Time Optimization (JIT LTO)
@@ -119,6 +120,7 @@ outputs:
       license_file: LICENSE
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_url: https://docs.nvidia.com/cuda/eula/index.html
+      license_family: Other
       summary: CUDA nvJitLink library
       description: |
         nvJitLink - Just-in-Time Link Time Optimization (JIT LTO)
@@ -153,6 +155,7 @@ outputs:
       license_file: LICENSE
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_url: https://docs.nvidia.com/cuda/eula/index.html
+      license_family: Other
       summary: CUDA nvJitLink library
       description: |
         nvJitLink - Just-in-Time Link Time Optimization (JIT LTO)
@@ -164,6 +167,7 @@ about:
   license_file: LICENSE
   license: LicenseRef-NVIDIA-End-User-License-Agreement
   license_url: https://docs.nvidia.com/cuda/eula/index.html
+  license_family: Other
   summary: CUDA nvJitLink library
   description: |
     nvJitLink - Just-in-Time Link Time Optimization (JIT LTO)
@@ -171,7 +175,5 @@ about:
   dev_url: https://docs.nvidia.com/cuda/nvjitlink/index.html
 
 extra:
-  skip-lints:
-    - license_file_overspecified
   recipe-maintainers:
     - conda-forge/cuda
