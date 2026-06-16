@@ -3,3 +3,7 @@ upstream_sources:
   - webpage:
       url: https://api.anaconda.org/package/conda-forge/libnvjitlink
       regex: '"version":\s*"([^"]+)"'
+    packages:
+      - libnvjitlink
+      - libnvjitlink-dev
+      - libnvjitlink-static
